@@ -11,3 +11,4 @@ My solutions to [Advent of Code](https://adventofcode.com/).
 | 2021 | Python           |                                                                                                     |
 | 2022 | Rust             | [Improvement proposals](./year2022/README.md#todo)                                                  |
 | 2023 | Rust             | [Improvement proposals](./year2023/README.md#todo)                                                  |
+| 2024 | Deciding         | Ongoing                                                                                             |
