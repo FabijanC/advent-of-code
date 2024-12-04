@@ -9,6 +9,8 @@ fi
 
 daydir="day$DAY"
 
+mkdir -p "$daydir"
+
 code -r "$daydir/"{part1,part2}"/main.go"
 code -r "$daydir/"{input.txt,sample.txt}
 
