@@ -16,17 +16,17 @@ func abs(x int) int {
 	}
 }
 
-func is_safe(num_values []int) bool {
-	diff := num_values[1] - num_values[0]
-	abs_diff := abs(diff)
-	expect_ascending := num_values[1] > num_values[0]
-	safe := abs_diff >= 1 && abs_diff <= 3
-	for i := 2; safe && i < len(num_values); i++ {
-		diff := num_values[i] - num_values[i-1]
+func safe(numValues []int) bool {
+	diff := numValues[1] - numValues[0]
+	absDiff := abs(diff)
+	expectAscending := numValues[1] > numValues[0]
+	safe := absDiff >= 1 && absDiff <= 3
+	for i := 2; safe && i < len(numValues); i++ {
+		diff := numValues[i] - numValues[i-1]
 		ascending := diff > 0
-		abs_diff = abs(diff)
+		absDiff = abs(diff)
 
-		if !(ascending == expect_ascending && abs_diff >= 1 && abs_diff <= 3) {
+		if !(ascending == expectAscending && absDiff >= 1 && absDiff <= 3) {
 			return false
 		}
 	}
@@ -34,51 +34,51 @@ func is_safe(num_values []int) bool {
 	return safe
 }
 
-func remove_and_clone(slice []int, removable_i int) []int {
-	modified_slice := make([]int, len(slice)-1)
-	modified_slice_i := 0
+func removeAndClone(slice []int, removableIndex int) []int {
+	modified := make([]int, len(slice)-1)
+	modificationIndex := 0
 	for i, element := range slice {
-		if i == removable_i {
+		if i == removableIndex {
 			continue
 		}
-		modified_slice[modified_slice_i] = element
-		modified_slice_i++
+		modified[modificationIndex] = element
+		modificationIndex++
 	}
 
-	return modified_slice
+	return modified
 }
 
 func main() {
 	bio := bufio.NewReader(os.Stdin)
 
-	safe_count := 0
+	safeCount := 0
 
 	for {
-		byte_line, _, err := bio.ReadLine()
+		byteLine, _, err := bio.ReadLine()
 		if err != nil {
 			// no more input lines
 			break
 		}
-		line := string(byte_line)
-		str_values := strings.Split(line, " ")
-		num_values := make([]int, len(str_values))
-		for i, str_value := range str_values {
-			num_value, _ := strconv.Atoi(str_value)
-			num_values[i] = num_value
+		line := string(byteLine)
+		strValues := strings.Split(line, " ")
+		numValues := make([]int, len(strValues))
+		for i, s := range strValues {
+			num, _ := strconv.Atoi(s)
+			numValues[i] = num
 		}
 
-		if is_safe(num_values) {
-			safe_count++
+		if safe(numValues) {
+			safeCount++
 		} else {
-			for i := range len(num_values) {
-				modified_num_values := remove_and_clone(num_values, i)
-				if is_safe(modified_num_values) {
-					safe_count++
+			for i := range len(numValues) {
+				modifiedNumValues := removeAndClone(numValues, i)
+				if safe(modifiedNumValues) {
+					safeCount++
 					break
 				}
 			}
 		}
 	}
 
-	fmt.Println(safe_count)
+	fmt.Println(safeCount)
 }

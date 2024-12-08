@@ -12,12 +12,12 @@ func main() {
 
 	var grid [][]string
 	for {
-		line_buff, _, err := bio.ReadLine()
+		buff, _, err := bio.ReadLine()
 		if err != nil {
 			break
 		}
 
-		line := string(line_buff)
+		line := string(buff)
 		symbols := strings.Split(line, "")
 		grid = append(grid, symbols)
 	}
@@ -26,7 +26,7 @@ func main() {
 	width := len(grid[0])
 
 	goal := []string{"X", "M", "A", "S"}
-	match_count := 0
+	matchCount := 0
 
 	// iterate through all 8 directions
 	for di := -1; di <= 1; di++ {
@@ -38,27 +38,28 @@ func main() {
 			// iterate through all starting points
 			for i := 0; i < height; i++ {
 				for j := 0; j < width; j++ {
-					string_matched := true
-					for goal_i, goal_symbol := range goal {
-						candidate_i := i + goal_i*di
-						candidate_j := j + goal_i*dj
-						if candidate_i < 0 ||
-							candidate_i >= height ||
-							candidate_j < 0 ||
-							candidate_j >= width ||
-							grid[candidate_i][candidate_j] != goal_symbol {
-							string_matched = false
+					matched := true
+					for goalIndex, goalSymbol := range goal {
+						// candidate cooridnates
+						ci := i + goalIndex*di
+						cj := j + goalIndex*dj
+						if ci < 0 ||
+							ci >= height ||
+							cj < 0 ||
+							cj >= width ||
+							grid[ci][cj] != goalSymbol {
+							matched = false
 							break
 						}
 					}
 
-					if string_matched {
-						match_count++
+					if matched {
+						matchCount++
 					}
 				}
 			}
 		}
 	}
 
-	fmt.Println(match_count)
+	fmt.Println(matchCount)
 }

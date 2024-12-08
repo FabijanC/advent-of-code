@@ -26,18 +26,15 @@ func main() {
 
 	var grid []string
 
-	line_i := 0
 	var guard Point
-	for scanner.Scan() {
+	for i := 0; scanner.Scan(); i++ {
 		line := scanner.Text()
 		grid = append(grid, line)
 
-		candidate_j := strings.Index(line, "^")
-		if candidate_j != -1 {
-			guard = Point{i: line_i, j: candidate_j}
+		j := strings.Index(line, "^")
+		if j != -1 {
+			guard = Point{i, j}
 		}
-
-		line_i++
 	}
 
 	height := len(grid)
@@ -49,16 +46,16 @@ func main() {
 	for {
 		visited[guard] = true
 
-		next_position := guard.NextPosition(&direction)
-		if next_position.i < 0 || next_position.i >= height || next_position.j < 0 || next_position.j >= width {
+		next := guard.NextPosition(&direction)
+		if next.i < 0 || next.i >= height || next.j < 0 || next.j >= width {
 			break
 		}
 
-		if grid[next_position.i][next_position.j] == OBSTACLE {
+		if grid[next.i][next.j] == OBSTACLE {
 			// turn right
 			direction.i, direction.j = direction.j, -direction.i
 		} else {
-			guard = next_position
+			guard = next
 		}
 	}
 

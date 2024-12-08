@@ -10,10 +10,10 @@ import (
 )
 
 func main() {
-	input_bytes, _ := io.ReadAll(os.Stdin)
-	input_text := string(input_bytes)
+	inputBytes, _ := io.ReadAll(os.Stdin)
+	inputText := string(inputBytes)
 	matcher, _ := regexp.Compile("mul\\((\\d+),(\\d+)\\)|do\\(\\)|don't\\(\\)")
-	instructions := matcher.FindAllStringSubmatch(input_text, -1)
+	instructions := matcher.FindAllStringSubmatch(inputText, -1)
 
 	sum := 0
 	enabled := true

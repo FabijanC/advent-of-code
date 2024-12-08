@@ -12,12 +12,12 @@ func main() {
 
 	var grid [][]string
 	for {
-		line_buff, _, err := bio.ReadLine()
+		buff, _, err := bio.ReadLine()
 		if err != nil {
 			break
 		}
 
-		line := string(line_buff)
+		line := string(buff)
 		symbols := strings.Split(line, "")
 		grid = append(grid, symbols)
 	}
@@ -25,7 +25,7 @@ func main() {
 	height := len(grid)
 	width := len(grid[0])
 
-	match_count := 0
+	matchCount := 0
 
 	// iterate through all potential X middles (letter A)
 	for i := 1; i < height-1; i++ {
@@ -43,11 +43,11 @@ func main() {
 				"")
 
 			if corners == "MMSS" || corners == "MSMS" || corners == "SSMM" || corners == "SMSM" {
-				match_count++
+				matchCount++
 			}
 
 		}
 	}
 
-	fmt.Println(match_count)
+	fmt.Println(matchCount)
 }

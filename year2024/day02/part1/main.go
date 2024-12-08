@@ -19,40 +19,40 @@ func abs(x int) int {
 func main() {
 	bio := bufio.NewReader(os.Stdin)
 
-	safe_count := 0
+	safeCount := 0
 
 	for {
-		byte_line, _, err := bio.ReadLine()
+		byteLine, _, err := bio.ReadLine()
 		if err != nil {
 			// no more input lines
 			break
 		}
-		line := string(byte_line)
-		str_values := strings.Split(line, " ")
-		num_values := make([]int, len(str_values))
-		for i, str_value := range str_values {
-			num_value, _ := strconv.Atoi(str_value)
-			num_values[i] = num_value
+		line := string(byteLine)
+		strValues := strings.Split(line, " ")
+		numValues := make([]int, len(strValues))
+		for i, s := range strValues {
+			num, _ := strconv.Atoi(s)
+			numValues[i] = num
 		}
 
-		diff := num_values[1] - num_values[0]
-		abs_diff := abs(diff)
-		expect_ascending := num_values[1] > num_values[0]
-		safe := abs_diff >= 1 && abs_diff <= 3
-		for i := 2; safe && i < len(num_values); i++ {
-			diff := num_values[i] - num_values[i - 1]
+		diff := numValues[1] - numValues[0]
+		absDiff := abs(diff)
+		expectAscending := numValues[1] > numValues[0]
+		safe := absDiff >= 1 && absDiff <= 3
+		for i := 2; safe && i < len(numValues); i++ {
+			diff := numValues[i] - numValues[i - 1]
 			ascending := diff > 0
-			abs_diff = abs(diff)
+			absDiff = abs(diff)
 
-			if !(ascending == expect_ascending && abs_diff >= 1 && abs_diff <= 3) {
+			if !(ascending == expectAscending && absDiff >= 1 && absDiff <= 3) {
 				safe = false
 			}
 		}
 
 		if safe {
-			safe_count++
+			safeCount++
 		}
 	}
 
-	fmt.Println(safe_count)
+	fmt.Println(safeCount)
 }
