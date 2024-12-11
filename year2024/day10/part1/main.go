@@ -36,7 +36,7 @@ func findTrailEnds(grid [][]int, start *Point) PointSet {
 		neighborHeight := grid[neighbor.i][neighbor.j]
 		if neighborHeight-startHeight == 1 {
 			neighborEnds := findTrailEnds(grid, &neighbor)
-			for neighborEnd, _ := range neighborEnds {
+			for neighborEnd := range neighborEnds {
 				ends[neighborEnd] = true
 			}
 		}
