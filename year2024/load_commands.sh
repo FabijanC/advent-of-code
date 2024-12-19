@@ -6,6 +6,9 @@ run() {
         return 1
     fi
 
-    go build -o "bin/$1" "$1/main.go" && "bin/$1"
+    program="$1"
+    shift # to support passing args to the program
+
+    go build -o "bin/$program" "$program/main.go" && "bin/$program" $@
 }
 export run
