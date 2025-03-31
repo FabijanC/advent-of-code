@@ -9,28 +9,24 @@ import (
 const HEIGHT = 5
 const WIDTH = 5
 
-type Key = [WIDTH]byte
-type Lock = [WIDTH]byte
+type Mechanism = [WIDTH]byte
+type Key = Mechanism
+type Lock = Mechanism
 
 const KEY_TOP = "....."
-const KEY_BOTTOM = "#####"
-
 const LOCK_TOP = "#####"
-const LOCK_BOTTOM = "....."
-
-const EMPTY = '.'
 const FULL = '#'
 
-func ReadBlock(bio *bufio.Scanner) [WIDTH]byte {
-	arr := [WIDTH]byte{}
+func parseBlock(bio *bufio.Scanner) Mechanism {
+	mechanism := Mechanism{}
 
-	for _ = range HEIGHT {
+	for range HEIGHT {
 		bio.Scan()
 		line := bio.Text()
 
 		for i := range len(line) {
 			if line[i] == FULL {
-				arr[i]++
+				mechanism[i]++
 			}
 		}
 	}
@@ -38,7 +34,7 @@ func ReadBlock(bio *bufio.Scanner) [WIDTH]byte {
 	bio.Scan() // read remaining block line
 	bio.Text()
 
-	return arr
+	return mechanism
 }
 
 func main() {
@@ -49,14 +45,14 @@ func main() {
 
 	for bio.Scan() {
 		line := bio.Text()
+		mechanism := parseBlock(bio)
+
 		if line == KEY_TOP {
-			key := ReadBlock(bio)
-			keys = append(keys, key)
+			keys = append(keys, mechanism)
 		} else if line == LOCK_TOP {
-			lock := ReadBlock(bio)
-			locks = append(locks, lock)
+			locks = append(locks, mechanism)
 		} else {
-			fmt.Println("Invalid schema top", line)
+			fmt.Fprintln(os.Stderr, "Invalid block top:", line)
 			os.Exit(1)
 		}
 
