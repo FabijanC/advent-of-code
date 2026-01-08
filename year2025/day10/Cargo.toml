@@ -1,0 +1,14 @@
+[package]
+name = "day10"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+
+[[bin]]
+name = "part1"
+
+[[bin]]
+name = "part2"
+
+[dependencies]
+good_lp = { version = "1.14.2", features = ["scip", "scip_bundled"] }
