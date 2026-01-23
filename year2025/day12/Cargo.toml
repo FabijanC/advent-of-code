@@ -1,0 +1,10 @@
+[package]
+name = "day12"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "part1"
+
+[profile.release]
+overflow-checks = true
